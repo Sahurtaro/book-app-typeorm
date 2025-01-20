@@ -6,6 +6,8 @@ import { AuthGuard } from './guard/auth.guard';
 import { Request } from 'express';
 import { RolesGuard } from './guard/roles.guard';
 import { Roles } from './decorators/roles.decorator';
+import { Role } from '../common/enum/role.enum';
+import { Auth } from './decorators/auth.decorator';
 
 interface RequestWithUser extends Request {
   user: { email: string; role: string };
@@ -26,8 +28,9 @@ export class AuthController {
   }
 
   @Get('profile')
-  @Roles('admin')
-  @UseGuards(AuthGuard, RolesGuard)
+  @Auth(Role.ADMIN)
+  // @Roles(Role.ADMIN)
+  // @UseGuards(AuthGuard, RolesGuard)
   profile(@Req() req: RequestWithUser) {
     return this.authService.profile(req.user);
   }
