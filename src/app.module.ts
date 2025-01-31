@@ -4,16 +4,20 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthorsModule } from './authors/authors.module';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
     TypeOrmModule.forRoot({
       type: 'mysql',
-      host: 'localhost',
-      port: 3307,
-      username: 'user_books',
-      password: 'root',
-      database: 'db_books',
+      host: process.env.MYSQL_HOST,
+      port: parseInt(process.env.MYSQL_PORT), //las variables de entorno las detecta siempre como strings, por eso el parseInt
+      username: process.env.MYSQL_USER,
+      password: process.env.MYSQL_PASSWORD,
+      database: process.env.MYSQL_DATABASE,
       autoLoadEntities: true,
       synchronize: true,
     }),
