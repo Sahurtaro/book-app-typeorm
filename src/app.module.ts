@@ -5,6 +5,7 @@ import { AuthorsModule } from './authors/authors.module';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
+import { CommentsResolver } from './comments/comments.resolver';
 
 @Module({
   imports: [
@@ -27,6 +28,6 @@ import { ConfigModule } from '@nestjs/config';
     AuthModule,
   ],
   controllers: [],
-  providers: [],
+  providers: [CommentsResolver],
 })
 export class AppModule {}
