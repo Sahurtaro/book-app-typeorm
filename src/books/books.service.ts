@@ -38,6 +38,7 @@ export class BooksService {
     const author = await this.authorRepository.findOneBy({
       name: updateBookDto.author,
     });
+
     if (!author) {
       throw new BadRequestException('Author not found');
     }
